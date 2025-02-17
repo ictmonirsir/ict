@@ -1,11 +1,253 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Chapter 5</title>
-	</head>
-	<body>
-		<a href="index.html">Home Page</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        #quiz-container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 18px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .correct {
+            background-color: #28a745 !important; /* Green */
+        }
+        .wrong {
+            background-color: #dc3545 !important; /* Red */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="index.html">Home Page</a>
 		<h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি</h1>
 		<h3>অধ্যায়  ৫: প্রোগ্রাম ডিজাইন</h3>
-	</body>
+        <p id="question"></p>
+        <div id="answers"></div>
+        <p id="score">Score: 0</p>
+    </div>
+
+    <script>
+        // Quiz Questions
+        const quizData = [
+            {
+                question: "প্রশ্ন ১. মেশিন ভাষার সুবিধা কোনটি ?",
+                answers: ["ক - প্রোগ্রাম সহজে লেখা যায়","খ - সব ধরনের মেশিনে ব্যবহার উপযোগী","গ - প্রোগ্রাম সরাসরি ও দ্রুত কার্যকরি হয়","ঘ - প্রোগ্রামের ভুল সহজে সনাক্ত করা যায়"],
+                correct: 2
+            },
+            {
+                question: "প্রশ্ন ২. মেশিন ভাষায় অনুদিত হয় কোনটি?",
+                answers: ["ক - অপারেন্ড","খ - লেবেল","গ - কমেন্ট","ঘ - অপারেশন কোড"],
+                correct: 3
+            },
+			{
+                question: "প্রশ্ন ৩. উৎস প্রোগ্রামকে একত্রে বস্তু প্রোগ্রামে রূপান্তর করে কোনটি ?",
+                answers: ["ক - অ্যাসেম্বলার","খ - ইন্টারপ্রেটার","গ - কম্পাইলার","ঘ - সকল ট্রান্সলেটর"],
+                correct: 2
+            },
+            {
+                question: "প্রশ্ন ৪. কোন ভাষায় লিখিত প্রোগ্রাম কম্পিউটার সরাসরি বুঝতে পারে ?",
+                answers: ["ক - মেশিন ভাষা","খ - হাই লেভেল ভাষা","গ - অ্যাসেম্বলি ভাষা","ঘ - চতুর্থ প্রজন্মের ভাষা"],
+                correct: 0
+            },
+			{
+				question: "প্রশ্ন ৫. কোনটি মধ্যম স্তরের ভাষা ?",
+                answers: ["ক - বেসিক","খ - কোবল","গ - ফোরট্রান","ঘ - সি"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ৬. কম্পিউটারের মৌলিক ভাষা কোনটি?",
+                answers: ["ক - মেশিন ভাষা","খ - হাই লেভেল ভাষা","গ - অ্যাসেম্বলি ভাষা","ঘ - চতুর্থ প্রজন্মের ভাষা"],
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ৭. সি ভাষার অনুবাদক প্রোগ্রাম কোনটি ?",
+                answers: ["ক - অ্যাসেম্বলার","খ - ইন্টারপ্রেটার","গ - কম্পাইলার","ঘ - সকল ট্রান্সলেটর"],
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ৮. চতুর্থ প্রজন্মের ভাষা কোনটি ?",
+                answers: ["ক - বেসিক","খ - কোবল","গ - ফোরট্রান","ঘ - এসকিউএল"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ৯. স্বাভাবিক ভাষা কোনটি?",
+                answers: ["ক -  পঞ্চম প্রজন্মের ভাষা","খ - হাই লেভেল ভাষা","গ - অ্যাসেম্বলি ভাষা","ঘ - চতুর্থ প্রজন্মের ভাষা"],
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ১০. কোন ভাষায় লিখিত প্রোগ্রাম অনুবাদকের প্রয়োজন হয়না ?",
+                answers: ["ক - মেশিন ভাষা","খ - হাই লেভেল ভাষা","গ - অ্যাসেম্বলি ভাষা","ঘ - চতুর্থ প্রজন্মের ভাষা"],
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ১১. কোন ভাষায় হার্ডওয়্যার নিয়ন্ত্রনের পাশাপাশি উচ্চ স্তরের ভাষার সুবিধা পাওয়া যায় ?",
+                answers: ["ক - বেসিক","খ - কোবল","গ - ফোরট্রান","ঘ - সি"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ১২. ইনহেরিটেন্স কোন প্রোগ্র্রমিং মডেল এর বৈশিষ্ট্য ?",
+                answers: ["ক - স্ট্রাকচার্ড প্রোগ্র্রমিং","খ - অবজেক্ট অরিয়েন্টেড প্রোগ্র্রমিং","গ - ভিজুয়্যাল প্রোগ্র্রমিং","ঘ - ইভেন্ট ড্রাইভেন প্রোগ্র্রমিং"],
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ১৩. কোনটি  অবজেক্ট অরিয়েন্টেড প্রোগ্র্রমিং ?",
+                answers: ["ক - বেসিক","খ - কোবল","গ - ফোরট্রান","ঘ - জাভা"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ১৪. সাংকেতিক চিহ্ন দিয়ে লিখিত ভাষা কোনটি ?",
+                answers: ["ক - মেশিন ভাষা","খ - হাই লেভেল ভাষা","গ - অ্যাসেম্বলি ভাষা","ঘ - চতুর্থ প্রজন্মের ভাষা"],
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ১৫. সি ভাষা কোন প্রোগ্র্রমিং মডেল এর বৈশিষ্ট্য অনুসরণ করে ?",
+                answers: ["ক - স্ট্রাকচার্ড প্রোগ্র্রমিং","খ - অবজেক্ট অরিয়েন্টেড প্রোগ্র্রমিং","গ - ভিজুয়্যাল প্রোগ্র্রমিং","ঘ - ইভেন্ট ড্রাইভেন প্রোগ্র্রমিং"],
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ১৬. প্রোগ্রামের ভুল সংশোধন করাকে কি বলে ?",
+                answers: ["ক - এনকোডিং","খ - ডিবাগিং","গ - ডিকোডিং","ঘ - বাগিং "],
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ১৭. কম্পাইলারের এর বৈশিষ্ট্য হলো- ১) টেস্টিং ও ডিবাগিং এর ক্ষেত্রে ধীর গতিসম্পন্ন , ২) প্রোগ্রাম নির্বাহে বেশি সময় নেয়, ৩) অনুবাদকৃত প্রোগ্রাম পূর্ণাংগ মেশিন প্রোগ্রামে রূপান্তর করা",
+                answers: ["ক - ১ ও ২ ","খ - ১ ও ৩","গ - ২ ও ৩","ঘ - ১,২ ও ৩ "],
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ১৮. বিট, বাইট, মেমরি নিয়ে কাজ করে - ১) মেশিন ভাষা, ২) মধ্যস্তরের ভাষা, ৩) উচ্চ স্তরের ভাষা ",
+                answers: ["ক - ১ ও ২ ","খ - ১ ও ৩","গ - ২ ও ৩","ঘ - ১,২ ও ৩ "],
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ১৯. প্রোগ্রাম লিখতে মেশিন ভাষা ব্যবহার করা হলে - ১) প্রোগ্রাম পরিবর্তন করা কষ্টসাধ্য হয়, ২) দক্ষ প্রোগ্রামার প্রয়োজন হয়, ৩) প্রোগ্রাম দ্রুত নির্বাহ হয় ",
+                answers: ["ক - ১ ও ২ ","খ - ১ ও ৩","গ - ২ ও ৩","ঘ - ১,২ ও ৩ "],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ২০. প্রবাহ চিত্রের কোন প্রতীকটি প্রসেস এর জন্য ব্যবহৃত হয় ?",
+                answers: ["ক - বৃত্ত","খ - সামন্তরিক","গ - রম্বস","ঘ - আয়তক্ষেত্র"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ২১. প্রোগ্রাম তৈরিতে প্রোগ্রাম ডিজাইনের পরবর্তী ধাপ কোনটি ?",
+                answers: ["ক - সমস্যা বিশ্লেষন ","খ - প্রোগ্রাম কোডিং","গ - প্রোগ্রাম বাস্তবায়ন","ঘ - প্রোগ্রাম রক্ষণাবেক্ষণ"],
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ২২.  প্রবাহ চিত্রের কোন প্রতীকটি সিদ্ধান্ত এর জন্য ব্যবহৃত হয় ? ?",
+                answers: ["ক - বৃত্ত","খ - সামন্তরিক","গ - রম্বস","ঘ - আয়তক্ষেত্র"],
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ২৩.  প্রবাহ চিত্রের কোন প্রতীকটি সংযোগ এর জন্য ব্যবহৃত হয় ? ?",
+                answers: ["ক - বৃত্ত","খ - সামন্তরিক","গ - রম্বস","ঘ - আয়তক্ষেত্র"],
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ২৪.  প্রবাহ চিত্রের কোন প্রতীকটি ইনপুট ও আউটপুট এর জন্য ব্যবহৃত হয় ? ?",
+                answers: ["ক - বৃত্ত","খ - সামন্তরিক","গ - রম্বস","ঘ - আয়তক্ষেত্র"],
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ২৫.  প্রবাহ চিত্রের কোন প্রতীকটি শুরু ও শেষ এর জন্য ব্যবহৃত হয় ? ?",
+                answers: ["ক - বৃত্ত","খ - সামন্তরিক","গ - রম্বস","ঘ - উপবৃত্ত"],
+                correct: 3
+			}
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const questionElement = document.getElementById("question");
+            const answersElement = document.getElementById("answers");
+            const scoreElement = document.getElementById("score");
+
+            if (currentQuestion < quizData.length) {
+                questionElement.innerText = quizData[currentQuestion].question;
+                answersElement.innerHTML = "";
+
+                quizData[currentQuestion].answers.forEach((answer, index) => {
+                    const btn = document.createElement("button");
+                    btn.innerText = answer;
+                    btn.classList.add("btn");
+                    btn.onclick = () => checkAnswer(index, btn);
+                    answersElement.appendChild(btn);
+                });
+
+                scoreElement.innerText = `Score: ${score}`;
+            } else {
+                document.getElementById("quiz-container").innerHTML = `
+                    <a href="index.html">Home Page</a>
+					<h2>পরীক্ষা শেষ !</h2>
+                    <p>তোমার স্কোর : ${score} / ${quizData.length}</p>
+                    <button class="btn" onclick="restartQuiz()">পুনরায় শুরু</button>`;
+            }
+        }
+
+        function checkAnswer(index, btn) {
+            const correctIndex = quizData[currentQuestion].correct;
+            
+            if (index === correctIndex) {
+                btn.classList.add("correct");
+                score++;
+            } else {
+                btn.classList.add("wrong");
+            }
+
+            // Delay before moving to the next question
+            setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+            }, 1000);
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById("quiz-container").innerHTML = `
+                <a href="index.html">Home Page</a>
+				<h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি</h1>
+				<h3>অধ্যায়  ৫: প্রোগ্রাম ডিজাইন</h3>
+                <p id="question"></p>
+                <div id="answers"></div>
+                <p id="score">Score: 0</p>
+            `;
+            loadQuestion();
+        }
+
+        loadQuestion(); // Load the first question
+    </script>
+
+</body>
 </html>
