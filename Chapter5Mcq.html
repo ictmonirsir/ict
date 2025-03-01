@@ -49,7 +49,8 @@
     <div id="quiz-container">
         <a href="index.html">Home Page</a>
 		<h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি</h1>
-		<h3>অধ্যায়  ৫: প্রোগ্রাম ডিজাইন</h3>
+		<h3>অধ্যায়  ৫:প্রথম অংশ ( প্রোগ্রাম ডিজাইন )</h3>
+		<a href="Chap5Part2Mcq.html">দ্বিতীয় অংশ</a>
         <p id="question"></p>
         <div id="answers"></div>
         <p id="score">Score: 0</p>
@@ -229,7 +230,7 @@
             setTimeout(() => {
                 currentQuestion++;
                 loadQuestion();
-            }, 1000);
+            }, 500);
         }
 
         function restartQuiz() {
@@ -237,8 +238,9 @@
             score = 0;
             document.getElementById("quiz-container").innerHTML = `
                 <a href="index.html">Home Page</a>
-				<h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি</h1>
-				<h3>অধ্যায়  ৫: প্রোগ্রাম ডিজাইন</h3>
+		<h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি</h1>
+		<h3>অধ্যায়  ৫:প্রথম অংশ ( প্রোগ্রাম ডিজাইন )</h3>
+		<a href="Chap5Part2Mcq.html">দ্বিতীয় অংশ</a>
                 <p id="question"></p>
                 <div id="answers"></div>
                 <p id="score">Score: 0</p>
