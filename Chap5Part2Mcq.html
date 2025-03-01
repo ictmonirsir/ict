@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        #quiz-container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 18px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .correct {
+            background-color: #28a745 !important; /* Green */
+        }
+        .wrong {
+            background-color: #dc3545 !important; /* Red */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="index.html">Home Page</a>
+		<h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি</h1>
+		<h3>অধ্যায়  ৫: দ্বিতীয় অংশ ( সি প্রোগ্রামিং )</h3>
+		<a href="Chapter5Mcq.html">প্রথম অংশ</a>
+        <p id="question"></p>
+        <div id="answers"></div>
+        <p id="score">Score: 0</p>
+    </div>
+
+    <script>
+        // Quiz Questions
+        const quizData = [
+            {
+				question: "প্রশ্ন ১. int ডেটাটাইপ  মেমরিতে কত বাইট জায়গা দখল করে ?",
+                answers: ["ক - ১","খ - ২","গ - ৩","ঘ - ৪"],
+                correct: 1
+			},
+			{question: "প্রশ্ন ২.  float ডেটাটাইপ মেমরিতে কত বাইট জায়গা দখল করে?",
+                answers: ["ক - ১","খ - ২","গ - ৩","ঘ - ৪"],
+                correct: 3
+			},
+			{
+                question: "প্রশ্ন ৩.  char ডেটাটাইপ মেমরিতে কত বাইট জায়গা দখল করে?",
+                answers: ["ক - ১","খ - ২","গ - ৩","ঘ - ৪"],
+                correct: 0
+            },
+			{
+				question: "প্রশ্ন ৪. double ডেটাটাইপ মেমরিতে কত বাইট জায়গা দখল করে  ?",
+                answers: ["ক - ২","খ - ৪","গ - ৬","ঘ - ৮"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ৫. double ডেটাটাইপের জন্য কোনটি ব্যবহার করা হয় ?",
+                answers: ["ক - %d","খ - %c","গ - %f","ঘ - %lf"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ৬. সি ভাষায় বৈধ চলক কোনটি?",
+                answers: ["ক - ab@yahoo","খ - Roll107","গ - abc ny","ঘ - abc-n"],
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ৭. কোনটি সি ভাষায় কী ওয়ার্ড নয় ?",
+                answers: ["ক - void","খ - int","গ - scanf","ঘ - switch"],
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ৮. কোনটি সি ভাষায় ফাংশন ?",
+                answers: ["ক - int","খ - stdio.h","গ - printf()","ঘ - for"],
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ৯. int a=3,b;  b=2*a;  b এর মান কত ?",
+                answers: ["ক - ৩","খ - ৪","গ - ৫","ঘ - ৬"],
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ১০. int a=3,b;  b=a++; b এর মান কত ?",
+                answers: ["ক - ৩","খ - ৪","গ - ৫","ঘ - ৬"], 
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ১১.  সি ভাষায় লাইব্রেরি ফাংশনের উদাহরণ হলো-? ১) printf(), 2)scanf(), 3)add() ",
+                answers: ["ক - ১ ও ২ ","খ - ১ ও ৩","গ - ২ ও ৩","ঘ - ১,২ ও ৩ "], 
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ১২.  সি ভাষায় উপাত্ত গ্রহনের কমান্ড কোনটি-?",
+                answers: ["ক - main()","খ - printf()","গ - scanf()","ঘ - getch()"], 
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ১৩.  সি ভাষা উদ্ভাবন করেন -",
+                answers: ["ক - বিল গেটস","খ - ভন নিউম্যান","গ - ডেনিস রিচি","ঘ - ইকার্ট"], 
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ১৪. long int ডেটাটাইপ  মেমরিতে কত বাইট জায়গা দখল করে ?  -",
+                answers: ["ক - ২","খ - ৪","গ - ৬","ঘ - ৮"], 
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ১৫. সি ভাষার হেডার ফাইল হচ্ছে  - ১) প্রোগ্রামের আবশ্যকীয় অংশ ২) ডেটা টাইপ ধারনকারী ফাইল ৩) ফাংশনের বর্ণনাকারী ফাইল",
+                answers: ["ক - ১ ও ২ ","খ - ১ ও ৩","গ - ২ ও ৩","ঘ - ১,২ ও ৩ "], 
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ১৬. x=5 হলে x+=15 এর মান কত ?",
+                answers: ["ক - ৫ ","খ - ১০","গ - ১৫","ঘ - ২০"], 
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ১৭. x=10, y=x*5, y=y%3 এর মান কত ?",
+                answers: ["ক - ০","খ - ১","গ - ২","ঘ - ৩"], 
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ১৮. সি ভাষায় রিলেশনাল অপারেটর কত প্রকার ?",
+                answers: ["ক - ২","খ - ৩","গ - ৫","ঘ - ৬"], 
+                correct: 3
+			},
+			{
+				question: "প্রশ্ন ১৯. সি ভাষায় && কে কোন ধরনের অপারেটর বলা হয় ?",
+                answers: ["ক - Arithmetic","খ - Logical","গ - Relational","ঘ - Assignment"], 
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ২০. কোনটি সম্পর্কযুক্ত অপারেটর ?",
+                answers: ["ক  +","খ  >=","গ  OR","ঘ  <<"], 
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ২১. একই ধরনের ডেটা সংরক্ষনের জন্য কোনটি ব্যবহার করা হয় ?",
+                answers: ["ক - আরে","খ - স্ট্রাকচার","গ - পয়েন্টার","ঘ - ফাংশন"], 
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ২২. লাইব্রেরি ফাংশন হচ্ছে- ১) পূর্ব থেকে তৈরিকৃত বিভিন্ন বিষয়বস্তু , ২) এক ধরনের বিশেষ স্টেট্মেন্ট, ৩) শুধুমাত্র গাণিতিক কার্যে ব্যবহারযোগ্য নির্দেশ ",
+                answers: ["ক - ১ ও ২ ","খ - ১ ও ৩","গ - ২ ও ৩","ঘ - ১,২ ও ৩"], 
+                correct: 0
+			},
+			{
+				question: "প্রশ্ন ২৩.  getch() ফাংশনের জন্য Header file কোনটি ?",
+                answers: ["ক - stdio.h ","খ - conio.h","গ - math.h","ঘ - graphics.h"], 
+                correct: 1
+			},
+			{
+				question: "প্রশ্ন ২৪.  কম্পিউটার দ্বারা পুনরাবৃত্তিমূলক কাজ করার পদ্ধতিকে কী বলা হয় ?",
+                answers: ["ক - স্টেট্মেন্ট","খ - সর্টিং","গ - লুপিং","ঘ - সাবরুটিং"], 
+                correct: 2
+			},
+			{
+				question: "প্রশ্ন ২৫.  সি প্রোগ্রামিং ভাষা হলো- ১) সি একটি কেস সেনসিটিভ ভাষা, ২) সি একটি মধ্যম স্তরের ভাষা, ৩) সি একটি উচ্চ স্তরের ভাষা",
+                answers: ["ক - ১ ও ২ ","খ - ১ ও ৩","গ - ২ ও ৩","ঘ - ১,২ ও ৩"], 
+                correct: 0
+			}
+			
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const questionElement = document.getElementById("question");
+            const answersElement = document.getElementById("answers");
+            const scoreElement = document.getElementById("score");
+
+            if (currentQuestion < quizData.length) {
+                questionElement.innerText = quizData[currentQuestion].question;
+                answersElement.innerHTML = "";
+
+                quizData[currentQuestion].answers.forEach((answer, index) => {
+                    const btn = document.createElement("button");
+                    btn.innerText = answer;
+                    btn.classList.add("btn");
+                    btn.onclick = () => checkAnswer(index, btn);
+                    answersElement.appendChild(btn);
+                });
+
+                scoreElement.innerText = `Score: ${score}`;
+            } else {
+                document.getElementById("quiz-container").innerHTML = `
+                    <a href="index.html">Home Page</a>
+					<h2>পরীক্ষা শেষ !</h2>
+                    <p>তোমার স্কোর : ${score} / ${quizData.length}</p>
+                    <button class="btn" onclick="restartQuiz()">পুনরায় শুরু</button>`;
+            }
+        }
+
+        function checkAnswer(index, btn) {
+            const correctIndex = quizData[currentQuestion].correct;
+            
+            if (index === correctIndex) {
+                btn.classList.add("correct");
+                score++;
+            } else {
+                btn.classList.add("wrong");
+            }
+
+            // Delay before moving to the next question
+            setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+            }, 500);
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById("quiz-container").innerHTML = `
+                <a href="index.html">Home Page</a>
+				<h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি</h1>
+				<h3>অধ্যায়  ৫:  দ্বিতীয় অংশ ( সি প্রোগ্রামিং )</h3>
+				<a href="Chapter5Mcq.html">প্রথম অংশ</a>
+                <p id="question"></p>
+                <div id="answers"></div>
+                <p id="score">Score: 0</p>
+            `;
+            loadQuestion();
+        }
+
+        loadQuestion(); // Load the first question
+    </script>
+
+</body>
+</html>
