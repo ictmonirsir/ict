@@ -29,6 +29,22 @@
 			text-align: center;
        			}
 		</style>
+		<style>
+       			 @keyframes slideText 
+			{
+			0% { transform: translateX(100vw); } /* Start off-screen to the right */
+			100% { transform: translateX(-100%); } /* Move off-screen to the left */
+			}
+			.animated-text 
+			{
+			font-size: 24px;
+			font-weight: bold;
+			color: white;
+			white-space: nowrap; /* Prevents text from wrapping */
+			position: absolute; /* Allows movement across the screen */
+			animation: slideText 30s linear infinite; /* Adjust speed as needed */
+			}
+		</style>
 			
 		<p style="text-align:center;"><img src="Monir.jpg" height="180" width="160"/></p>
 		<font face="Times New Roman" size="4" color="White"> 	
@@ -59,6 +75,7 @@
 				<b style="text-align:center;"><a href="Chapter6Theory.html"><font size="4" color="White">Chapter 6</font></a></b>
 			</p>
 		</font>
+		<p class="animated-text">For HSC Students</p>
 	</body>
 </html> 
 
